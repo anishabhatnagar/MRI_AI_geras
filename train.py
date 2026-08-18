@@ -21,7 +21,6 @@ import torch.nn as nn
 import torch.nn.functional as F
 from torch.nn.parallel import DistributedDataParallel as DDP
 from torch.optim.lr_scheduler import ReduceLROnPlateau, StepLR, CosineAnnealingLR, MultiStepLR
-from apex import amp
 
 from utilities.callbacks import History, RedundantCallback, resolve_callbacks, EvaluateEpoch
 from utilities.warmup import GradualWarmupScheduler
@@ -245,6 +244,7 @@ def train(parameters: dict, callbacks: list = None):
 
     model.to(device)
     if parameters.half:
+        from apex import amp  # imported lazily so --half False works without an apex build
         model, optimizer = amp.initialize(
             model,
             optimizer,

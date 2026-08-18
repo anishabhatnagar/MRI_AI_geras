@@ -164,7 +164,7 @@ class MRIDataset(Dataset):
             except Exception as why:
                 print(f"Failed fetching metadata for acc {acn}: {why}")
     
-    def h5_to_sitk(self, h5path):
+    def h5_to_sitk(self, h5path, datalist=None):
         """
         Load h5 image and return SimpleITK Image
         """

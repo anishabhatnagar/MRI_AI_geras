@@ -37,14 +37,19 @@ logger.setLevel(logging.DEBUG)
 
 
 def initialize_wandb(parameters):
+    # project matches bmr_vjepa_style/configs/train/pre_post_standard/debug's
+    # wandb.project, so this run lands in the same project workspace as the
+    # vjepa-style experiments. entity is left unset (not passed to
+    # wandb.init) to match how bmr_vjepa_style configs handle it -- none of
+    # them set entity explicitly either, so both fall back to whatever the
+    # default entity is for the wandb login used on the cluster.
     run = wandb.init(
-        project="PROJECT-NAME",
-        entity="ENTITY-NAME",
+        project="bmr-pre-post-standard-new-labels",
         dir=parameters.logdir,
         name=parameters.experiment,
         config=parameters
     )
-    
+
     return run
 
 
